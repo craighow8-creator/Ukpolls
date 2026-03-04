@@ -575,16 +575,15 @@ function renderLeaders(data) {
         <div class="lch">
           <div><div class="lcname">${l.name}</div><div class="lcparty" style="color:${l.color}">${l.party}</div></div>
           <div>
-            <div class="lcnet" style="color:${l.net===null?'var(--muted)':l.net>0?'var(--up)':'var(--down)'}">
-              ${l.net===null?'—':(l.net>0?'+':'')+l.net}
-            </div>
+            <div class="lcnet" style="color:${l.net===null?'var(--muted)':l.net>0?'var(--up)':'var(--down)'}">${l.net===null?'—':(l.net>0?'+':'')+l.net}</div>
             <div class="lcnl">${l.net===null?'LIMITED':'NET'}</div>
           </div>
         </div>
-        ${l.note ? `<div style="font-size:12px;color:var(--muted);line-height:1.55">${l.note}</div>` : `
+        ${l.note ? `<div style="font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:8px">${l.note}</div>` : `
           <div class="abar"><div style="flex:${l.approve};background:#3fb95060"></div><div style="flex:${l.disapprove};background:#f8514960"></div></div>
-          <div class="lcs"><span style="color:var(--up)">▲ ${l.approve}%</span><span style="color:var(--down)">▼ ${l.disapprove}%</span></div>
+          <div class="lcs" style="margin-bottom:8px"><span style="color:var(--up)">▲ ${l.approve}%</span><span style="color:var(--down)">▼ ${l.disapprove}%</span></div>
         `}
+        ${l.pledge ? `<div style="font-size:12px;color:var(--dim);line-height:1.6;border-top:1px solid var(--border);padding-top:8px;margin-top:4px"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;display:block;margin-bottom:4px">KEY PLEDGE</span>${l.pledge}</div>` : ''}
       </div>
     `).join('');
 }
@@ -677,12 +676,12 @@ const FALLBACK_DATA = {
     {month:"Mar '26",Reform:28,Labour:20,Conservative:18,"Lib Dem":13,Green:11}
   ],
   leaders:[
-    {name:"Ed Davey",party:"Lib Dems",color:"#FAA61A",approve:28,disapprove:35,net:-7},
-    {name:"Carla Denyer",party:"Green Party",color:"#00B140",approve:26,disapprove:32,net:-6},
-    {name:"Nigel Farage",party:"Reform UK",color:"#12B7D4",approve:38,disapprove:48,net:-10},
-    {name:"Rupert Lowe",party:"Restore Britain",color:"#9B2020",approve:null,disapprove:null,net:null,note:"86% of UK adults could not identify Lowe in a Feb 2026 JL Partners poll. Recognition rising rapidly via social media."},
-    {name:"Kemi Badenoch",party:"Conservative",color:"#4060b0",approve:22,disapprove:47,net:-25},
-    {name:"Keir Starmer",party:"Labour",color:"#E4003B",approve:24,disapprove:65,net:-41}
+    {name:"Zack Polanski",party:"Green Party",color:"#00B140",approve:35,disapprove:28,net:-1,pledge:"Tax extreme wealth to fund free childcare, green jobs & affordable housing. Eco-populist platform combining environmentalism with socialist economics."},
+    {name:"Ed Davey",party:"Lib Dems",color:"#FAA61A",approve:28,disapprove:35,net:-7,pledge:"Proportional representation, mental health funding, and rejoining the EU single market for goods."},
+    {name:"Nigel Farage",party:"Reform UK",color:"#12B7D4",approve:38,disapprove:48,net:-10,pledge:"Net zero immigration, abolish BBC licence fee, scrap net zero climate targets, and cut income tax."},
+    {name:"Rupert Lowe",party:"Restore Britain",color:"#9B2020",approve:null,disapprove:null,net:null,note:"86% of UK adults could not identify Lowe in a Feb 2026 JL Partners poll. Recognition rising via social media.",pledge:"Restore law and order, drastically cut immigration, and reverse what the party calls cultural decline."},
+    {name:"Kemi Badenoch",party:"Conservative",color:"#4060b0",approve:22,disapprove:47,net:-25,pledge:"Reduce the size of the state, cut regulation, reform public services and restore economic competitiveness."},
+    {name:"Keir Starmer",party:"Labour",color:"#E4003B",approve:24,disapprove:65,net:-41,pledge:"Economic stability, NHS reform, clean energy by 2030, and rebuilding public services after austerity."}
   ],
   recentPolls:[
     {date:"23 Feb",pollster:"YouGov",Reform:28,Labour:20,Conservative:18,"Lib Dem":13,Green:11,"Restore Britain":null},
