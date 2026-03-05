@@ -278,8 +278,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Source
 // ── State ──
 let pollingData = null;
 let chartInstance = null;
-const CACHE_KEY = 'ukpolls_data';
-const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
+const CACHE_KEY = 'ukpolls_data_v2';
+const CACHE_TTL = 4 * 60 * 60 * 1000; // 6 hours
 
 const COLORS = {
   Reform:'#12B7D4', Labour:'#E4003B', Conservative:'#4060b0',
@@ -387,8 +387,7 @@ Fill in the most accurate and up-to-date numbers you can find from web search. K
       body: JSON.stringify({
         model:'claude-sonnet-4-20250514',
         max_tokens:2000,
-        tools:[{type:'web_search_20250305',name:'web_search'}],
-        system:'You are a UK political data API. Always use web_search to find the latest UK polling data. IMPORTANT: You MUST include Restore Britain (new party led by Rupert Lowe MP, launched Feb 2026) — search for Restore Britain polling specifically. Return ONLY valid JSON, no markdown fences, no commentary.',
+        system:'You are a UK political data API. Return the most up to date UK polling data you know about. IMPORTANT: Always include Restore Britain (new party led by Rupert Lowe MP, launched Feb 2026) in the parties array. Return ONLY valid JSON, no markdown fences, no commentary.',
         messages:[{role:'user',content:prompt}]
       })
     });
@@ -632,8 +631,7 @@ async function askAI(){
   try{
     const r=await fetch('https://throbbing-base-05b6.craighow8.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       model:'claude-sonnet-4-20250514',max_tokens:1000,
-      tools:[{type:'web_search_20250305',name:'web_search'}],
-      system:`You are a sharp UK political analyst. Use web search for the latest context. Answer concisely in plain paragraphs — no markdown headers or bullets. Under 200 words.\n\nCurrent polling data: ${ctx}`,
+      system:`You are a sharp UK political analyst. Answer concisely in plain paragraphs — no markdown headers or bullets. Under 200 words.\n\nCurrent polling data: ${ctx}`,
       messages:[{role:'user',content:q}]
     })});
     const d=await r.json();
