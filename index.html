@@ -381,7 +381,7 @@ Fill in the most accurate and up-to-date numbers you can find from web search. K
   try {
     document.getElementById('ls-status').textContent = 'Querying Claude with web search…';
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://throbbing-base-05b6.craighow8.workers.dev', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
@@ -630,7 +630,7 @@ async function askAI(){
     context: pollingData.contextSummary
   }) : 'Reform 28%, Labour 20%, Con 18%, LD 13%, Green 11%, Restore Britain 7%';
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    const r=await fetch('https://throbbing-base-05b6.craighow8.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       model:'claude-sonnet-4-20250514',max_tokens:1000,
       tools:[{type:'web_search_20250305',name:'web_search'}],
       system:`You are a sharp UK political analyst. Use web search for the latest context. Answer concisely in plain paragraphs — no markdown headers or bullets. Under 200 words.\n\nCurrent polling data: ${ctx}`,
@@ -649,18 +649,18 @@ document.getElementById('ai-input').addEventListener('keydown',e=>{if(e.key==='E
 
 // ── Fallback hardcoded data ──
 const FALLBACK_DATA = {
-  fetchDate: "4 Mar 2026",
+  fetchDate: "4 Mar 2026 · Find Out Now",
   parties: [
-    {name:"Reform",abbr:"REF",pct:28,change:1,seats:242,color:"#12B7D4"},
-    {name:"Labour",abbr:"LAB",pct:20,change:0,seats:198,color:"#E4003B"},
-    {name:"Conservative",abbr:"CON",pct:18,change:-1,seats:116,color:"#4060b0"},
-    {name:"Lib Dem",abbr:"LD",pct:13,change:-1,seats:67,color:"#FAA61A"},
-    {name:"Green",abbr:"GRN",pct:11,change:1,seats:12,color:"#00B140"},
-    {name:"SNP",abbr:"SNP",pct:3,change:0,seats:5,color:"#d4a012"},
-    {name:"Restore Britain",abbr:"RB",pct:7,change:0,seats:1,color:"#9B2020",note:"Prompted poll only — not yet on standard BPC trackers"}
+    {name:"Reform",abbr:"REF",pct:24,change:-4,seats:198,color:"#12B7D4"},
+    {name:"Green",abbr:"GRN",pct:20,change:9,seats:48,color:"#00B140"},
+    {name:"Conservative",abbr:"CON",pct:17,change:-1,seats:108,color:"#4060b0"},
+    {name:"Labour",abbr:"LAB",pct:16,change:-4,seats:142,color:"#E4003B"},
+    {name:"Lib Dem",abbr:"LD",pct:10,change:-3,seats:54,color:"#FAA61A"},
+    {name:"Restore Britain",abbr:"RB",pct:7,change:0,seats:1,color:"#9B2020",note:"Find Out Now prompted poll, 3-4 Mar 2026"},
+    {name:"SNP",abbr:"SNP",pct:2,change:-1,seats:4,color:"#d4a012"}
   ],
   majority:326, hungParliament:true,
-  contextSummary:"Reform UK has led polling since May 2025, currently at 28% — up from 15% at the 2024 General Election. Labour has fallen from 33.7% at the election to just 20%. Restore Britain, led by Rupert Lowe MP, launched in February 2026 and is polling at 7–10% in early prompted surveys.",
+  contextSummary:"A dramatic new Find Out Now poll (3-4 Mar 2026) shows the Greens surging to 20% — second place nationally — as both Reform and Labour fall sharply. Reform drops to 24%, Labour collapses to just 16%. Restore Britain holds at 7%. No party is close to a 326-seat majority under any projection.",
   restoreBritainNote:"Led by Rupert Lowe MP (Great Yarmouth). Launched as a party 13 Feb 2026. Figure from prompted polls — not yet on standard BPC rolling trackers. 80,000+ members as of Feb 2026.",
   trends:[
     {month:"Jul '24",Reform:15,Labour:34,Conservative:24,"Lib Dem":13,Green:7},
@@ -673,7 +673,7 @@ const FALLBACK_DATA = {
     {month:"Sep '25",Reform:27,Labour:20,Conservative:19,"Lib Dem":14,Green:10},
     {month:"Nov '25",Reform:27,Labour:20,Conservative:18,"Lib Dem":14,Green:11},
     {month:"Jan '26",Reform:26,Labour:20,Conservative:18,"Lib Dem":14,Green:11},
-    {month:"Mar '26",Reform:28,Labour:20,Conservative:18,"Lib Dem":13,Green:11}
+    {month:"Mar '26",Reform:24,Labour:16,Conservative:17,"Lib Dem":10,Green:20}
   ],
   leaders:[
     {name:"Zack Polanski",party:"Green Party",color:"#00B140",approve:35,disapprove:28,net:-1,pledge:"Tax extreme wealth to fund free childcare, green jobs & affordable housing. Eco-populist platform combining environmentalism with socialist economics."},
@@ -684,6 +684,7 @@ const FALLBACK_DATA = {
     {name:"Keir Starmer",party:"Labour",color:"#E4003B",approve:24,disapprove:65,net:-41,pledge:"Economic stability, NHS reform, clean energy by 2030, and rebuilding public services after austerity."}
   ],
   recentPolls:[
+    {date:"4 Mar",pollster:"Find Out Now",Reform:24,Labour:16,Conservative:17,"Lib Dem":10,Green:20,"Restore Britain":7},
     {date:"23 Feb",pollster:"YouGov",Reform:28,Labour:20,Conservative:18,"Lib Dem":13,Green:11,"Restore Britain":null},
     {date:"21 Feb",pollster:"Opinium",Reform:27,Labour:21,Conservative:19,"Lib Dem":13,Green:10,"Restore Britain":null},
     {date:"18 Feb",pollster:"Savanta",Reform:29,Labour:19,Conservative:17,"Lib Dem":14,Green:11,"Restore Britain":null},
