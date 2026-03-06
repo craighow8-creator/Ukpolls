@@ -631,7 +631,8 @@ async function askAI(){
   try{
     const r=await fetch('https://throbbing-base-05b6.craighow8.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
       model:'claude-sonnet-4-20250514',max_tokens:1000,
-      system:`You are a sharp UK political analyst. Answer concisely in plain paragraphs — no markdown headers or bullets. Under 200 words.\n\nCurrent polling data: ${ctx}`,
+      tools:[{type:'web_search_20250305',name:'web_search'}],
+      system:`You are a sharp UK political analyst. Use web search to find the latest UK political news and polling. Answer concisely in plain paragraphs — no markdown headers or bullets. Under 200 words.\n\nCurrent polling data: ${ctx}`,
       messages:[{role:'user',content:q}]
     })});
     const d=await r.json();
