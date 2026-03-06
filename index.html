@@ -606,6 +606,18 @@ function renderPolls(data) {
 }
 
 function renderAll(data) {
+  // Hard overrides — always correct these regardless of AI output
+  if (data.leaders) {
+    data.leaders.forEach(l => {
+      if (l.party && l.party.toLowerCase().includes('green')) {
+        l.name = 'Zack Polanski';
+        if (!l.pledge) l.pledge = 'Tax extreme wealth to fund free childcare, green jobs & affordable housing. Eco-populist platform combining environmentalism with socialist economics.';
+      }
+      if (l.party && l.party.toLowerCase().includes('restore')) {
+        l.name = 'Rupert Lowe';
+      }
+    });
+  }
   renderOverview(data);
   renderTrends(data);
   renderDemographics(data);
