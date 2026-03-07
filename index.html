@@ -757,27 +757,30 @@ async function refreshData() {
 
 // ── Init ──
 async function init() {
+  // Hide loading screen IMMEDIATELY — never block the user
   const loadScreen = document.getElementById('loading-screen');
-  loadScreen.style.display = 'flex';
+  loadScreen.style.display = 'none';
 
-  // Show fallback data immediately — never keep user waiting
+  // Show fallback/cached data right away
   const cached = loadCache() || FALLBACK_DATA;
   pollingData = cached;
   renderAll(cached);
-  loadScreen.style.display = 'none';
-  setStatus('loading','UPDATING');
+  setStatus('error','CACHED');
 
-  // Try to fetch fresh data with a 20 second timeout
-  try {
-    const timeoutPromise = new Promise((_,reject) => setTimeout(() => reject(new Error('timeout')), 20000));
-    const data = await Promise.race([fetchPollingData(), timeoutPromise]);
-    pollingData = data;
-    renderAll(data);
-    setStatus('','LIVE');
-  } catch(e) {
-    setStatus('error','CACHED');
-    document.getElementById('last-updated').textContent = '⚠ Showing latest known data — tap ↻ to retry';
-  }
+  // Try background refresh after 1 second
+  setTimeout(async () => {
+    setStatus('loading','UPDATING');
+    try {
+      const timeoutPromise = new Promise((_,reject) => setTimeout(() => reject(new Error('timeout')), 20000));
+      const data = await Promise.race([fetchPollingData(), timeoutPromise]);
+      pollingData = data;
+      renderAll(data);
+      saveCache(data);
+      setStatus('','LIVE');
+    } catch(e) {
+      setStatus('error','CACHED');
+    }
+  }, 1000);
 }
 
 // PWA install
