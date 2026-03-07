@@ -760,23 +760,23 @@ async function init() {
   const loadScreen = document.getElementById('loading-screen');
   loadScreen.style.display = 'flex';
 
-  // Always show fallback data immediately so app never shows blank
+  // Show fallback data immediately — never keep user waiting
   const cached = loadCache() || FALLBACK_DATA;
   pollingData = cached;
   renderAll(cached);
   loadScreen.style.display = 'none';
   setStatus('loading','UPDATING');
 
-  // Then try to fetch fresh data in background
+  // Try to fetch fresh data with a 20 second timeout
   try {
-    const data = await fetchPollingData();
+    const timeoutPromise = new Promise((_,reject) => setTimeout(() => reject(new Error('timeout')), 20000));
+    const data = await Promise.race([fetchPollingData(), timeoutPromise]);
     pollingData = data;
     renderAll(data);
     setStatus('','LIVE');
   } catch(e) {
-    // Silently fall back — data already showing
     setStatus('error','CACHED');
-    document.getElementById('last-updated').textContent = '⚠ Showing cached data — tap ↻ to retry';
+    document.getElementById('last-updated').textContent = '⚠ Showing latest known data — tap ↻ to retry';
   }
 }
 
