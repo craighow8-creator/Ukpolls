@@ -584,14 +584,23 @@ function renderLeaders(data) {
             <div class="lcnl">${l.net===null?'LIMITED':'NET'}</div>
           </div>
         </div>
-        ${l.note ? `<div style="font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:8px">${l.note}</div>` : `
-          <div class="abar"><div style="flex:${l.approve};background:#3fb95060"></div><div style="flex:${l.disapprove};background:#f8514960"></div></div>
-          <div class="lcs" style="margin-bottom:8px"><span style="color:var(--up)">▲ ${l.approve}%</span><span style="color:var(--down)">▼ ${l.disapprove}%</span></div>
-        `}
-        ${l.pledge ? `<div style="font-size:12px;color:var(--dim);line-height:1.6;border-top:1px solid var(--border);padding-top:8px;margin-top:4px"><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;display:block;margin-bottom:4px">KEY PLEDGE</span>${l.pledge}</div>` : ''}
+        ${l.note ? '<div style="font-size:12px;color:var(--muted);line-height:1.55;margin-bottom:8px">'+l.note+'</div>' : '
+          <div class="abar"><div style="flex:'+l.approve+';background:#3fb95060"></div><div style="flex:'+l.disapprove+';background:#f8514960"></div></div>
+          <div class="lcs" style="margin-bottom:8px"><span style="color:var(--up)">▲ '+l.approve+'%</span><span style="color:var(--down)">▼ '+l.disapprove+'%</span></div>
+        '}
+        ${l.pledge ? '<div style="font-size:12px;line-height:1.7;border-top:1px solid var(--border);padding-top:8px;margin-top:4px">' +
+          '<span style="font-family:IBM Plex Mono,monospace;font-size:9px;color:var(--muted);letter-spacing:1px;display:block;margin-bottom:6px">KEY POLICIES</span>' +
+          l.pledge.split('. ').filter(s=>s.trim().length>0).map(s=>{
+            const ci=s.indexOf(':');
+            if(ci>0&&ci<25){
+              return '<div style="margin-bottom:6px"><span style="color:'+l.color+';font-size:10px;font-weight:700;font-family:IBM Plex Mono,monospace">'+s.substring(0,ci).toUpperCase()+'</span><span style="color:var(--dim)"> — '+s.substring(ci+1).trim()+'</span></div>';
+            }
+            return '<div style="color:var(--dim);margin-bottom:4px">'+s+'</div>';
+          }).join('') + '</div>' : ''}
       </div>
     `).join('');
 }
+
 
 function renderPolls(data) {
   const parties = ['Reform','Labour','Conservative','Lib Dem','Green','Restore Britain'];
@@ -693,13 +702,20 @@ const FALLBACK_DATA = {
     {month:"Mar '26",Reform:24,Labour:16,Conservative:17,"Lib Dem":10,Green:20}
   ],
   leaders:[
-    {name:"Zack Polanski",party:"Green Party",color:"#00B140",approve:35,disapprove:28,net:-1,pledge:"Tax extreme wealth to fund free childcare, green jobs & affordable housing. Eco-populist platform combining environmentalism with socialist economics."},
-    {name:"Ed Davey",party:"Lib Dems",color:"#FAA61A",approve:28,disapprove:35,net:-7,pledge:"Proportional representation, mental health funding, and rejoining the EU single market for goods."},
-    {name:"Nigel Farage",party:"Reform UK",color:"#12B7D4",approve:38,disapprove:48,net:-10,pledge:"Net zero immigration, abolish BBC licence fee, scrap net zero climate targets, and cut income tax."},
-    {name:"Rupert Lowe",party:"Restore Britain",color:"#9B2020",approve:null,disapprove:null,net:null,note:"86% of UK adults could not identify Lowe in a Feb 2026 JL Partners poll. Recognition rising via social media.",pledge:"Restore law and order, drastically cut immigration, and reverse what the party calls cultural decline."},
-    {name:"Kemi Badenoch",party:"Conservative",color:"#4060b0",approve:22,disapprove:47,net:-25,pledge:"Reduce the size of the state, cut regulation, reform public services and restore economic competitiveness."},
-    {name:"Keir Starmer",party:"Labour",color:"#E4003B",approve:24,disapprove:65,net:-41,pledge:"Economic stability, NHS reform, clean energy by 2030, and rebuilding public services after austerity."}
-  ],
+    {name:"Zack Polanski",party:"Green Party",color:"#00B140",approve:38,disapprove:30,net:8,
+      pledge:"Immigration: safe routes, migrants welcome. Economy: tax the wealthy, scrap fiscal rules. NHS: fully funded, end privatisation. Housing: rent controls, social housing. Climate: net zero by 2030, ban new oil & gas. Other: 4-day week, PR voting, Gaza ceasefire. Won Gorton & Denton by-election Feb 2026. Greens now 200,000+ members."},
+    {name:"Ed Davey",party:"Lib Dems",color:"#FAA61A",approve:28,disapprove:35,net:-7,
+      pledge:"Immigration: humane reform, international cooperation, oppose extremism. Economy: rejoin EU single market for goods, reform business rates. NHS: 10,000 new therapists, dental reform. Housing: build more homes, abolish leasehold. Climate: net zero by 2045, expand renewables. Other: proportional representation, strengthen local government."},
+    {name:"Nigel Farage",party:"Reform UK",color:"#12B7D4",approve:38,disapprove:48,net:-10,
+      pledge:"Immigration: leave ECHR, mass deportation command, 5 flights/day, abolish ILR, detention for 24,000. Economy: no income tax under £20k, cut corporation tax, slash foreign aid. NHS: cut management 50%, end DEI. Climate: scrap net zero entirely, reopen North Sea, abolish ULEZ. Other: abolish BBC licence fee, cut quangos, withdraw from WHO."},
+    {name:"Rupert Lowe",party:"Restore Britain",color:"#9B2020",approve:null,disapprove:null,net:null,
+      note:"86% of UK adults could not identify Lowe in a Feb 2026 JL Partners poll. Recognition rising rapidly via social media.",
+      pledge:"Immigration: drastic cuts, tough enforcement, prioritise British citizens. Economy: cut taxes for workers, reduce bureaucracy. NHS: reform management, reduce waste. Climate: energy security over net zero costs. Other: restore British culture & identity, law & order crackdown. Launched Feb 2026 — 80,000+ members, 7-10% in early prompted polls."},
+    {name:"Kemi Badenoch",party:"Conservative",color:"#4060b0",approve:22,disapprove:47,net:-25,
+      pledge:"Immigration: 10-year settlement route, tougher visas, deport foreign criminals faster. Economy: cut regulation, smaller state, lower business taxes. NHS: reduce bureaucracy, reform GP contracts. Housing: reform planning, protect green belt. Climate: net zero by 2050 but not at any cost, review green levies. Other: anti-woke platform, strengthen Union."},
+    {name:"Keir Starmer",party:"Labour",color:"#E4003B",approve:18,disapprove:67,net:-49,
+      pledge:"Immigration: white paper May 2025, extend settlement to 10 years, Border Security Command, 300 NCA agents, Electronic Travel Authorisation from Feb 2026. Economy: fiscal rules, no day-to-day borrowing, GB Energy, National Wealth Fund. NHS: cut waiting lists, 2m extra appointments/year. Housing: 1.5m homes, Renters Rights Bill. Climate: clean power by 2030. Net approval -49 — lowest of any PM in 50 years (Ipsos)."}
+  ]
   recentPolls:[
     {date:"4 Mar",pollster:"Find Out Now",Reform:24,Labour:16,Conservative:17,"Lib Dem":10,Green:20,"Restore Britain":7},
     {date:"23 Feb",pollster:"YouGov",Reform:28,Labour:20,Conservative:18,"Lib Dem":13,Green:11,"Restore Britain":null},
