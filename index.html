@@ -787,10 +787,9 @@ async function init() {
 let dp;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;});
 
-// Service Worker
+// Service worker disabled to prevent caching issues
 if('serviceWorker' in navigator){
-  const sw=`const C='ukpolls-v3';self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['/']))));self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));`;
-  navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'})));
+  navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
 }
 
 // Manifest
