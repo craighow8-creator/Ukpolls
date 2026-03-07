@@ -361,7 +361,13 @@ async function fetchPollingData() {
   ],
   "recentPolls": [
     {"date":"23 Feb","pollster":"YouGov","Reform":28,"Labour":20,"Conservative":18,"Lib Dem":13,"Green":11,"Restore Britain":null},
-    {"date":"14 Feb","pollster":"Find Out Now","Reform":25,"Labour":15,"Conservative":13,"Lib Dem":10,"Green":20,"Restore Britain":10}
+    {"date":"21 Feb","pollster":"Opinium","Reform":27,"Labour":21,"Conservative":19,"Lib Dem":13,"Green":10,"Restore Britain":null},
+    {"date":"18 Feb","pollster":"Savanta","Reform":29,"Labour":19,"Conservative":17,"Lib Dem":14,"Green":11,"Restore Britain":null},
+    {"date":"17 Feb","pollster":"Ipsos","Reform":26,"Labour":20,"Conservative":19,"Lib Dem":13,"Green":11,"Restore Britain":null},
+    {"date":"16 Feb","pollster":"More in Common","Reform":27,"Labour":20,"Conservative":18,"Lib Dem":13,"Green":11,"Restore Britain":null},
+    {"date":"14 Feb","pollster":"Find Out Now","Reform":25,"Labour":15,"Conservative":13,"Lib Dem":10,"Green":20,"Restore Britain":10},
+    {"date":"12 Feb","pollster":"Verian","Reform":27,"Labour":20,"Conservative":18,"Lib Dem":14,"Green":11,"Restore Britain":null},
+    {"date":"10 Feb","pollster":"Deltapoll","Reform":26,"Labour":21,"Conservative":19,"Lib Dem":13,"Green":10,"Restore Britain":null}
   ],
   "demographics": [
     {"age":"18-24","leader":"Green","Reform":8,"Labour":22,"Conservative":10,"Lib Dem":12,"Green":38},
@@ -376,7 +382,7 @@ async function fetchPollingData() {
   ]
 }
 
-Fill in the most accurate and up-to-date numbers you can find from web search. Keep the same JSON structure. Return ONLY the JSON.`;
+Search the web for the latest UK polls from YouGov, Ipsos, Savanta, Opinium, Verian, More in Common, Deltapoll, Find Out Now and other BPC members. Fill in AT LEAST 8 recent polls in recentPolls — search specifically for 'UK voting intention poll 2026 YouGov Ipsos Savanta Opinium'. Update all numbers with the latest data. Keep the same JSON structure. Return ONLY the JSON.`;
 
   try {
     document.getElementById('ls-status').textContent = 'Querying Claude with web search…';
@@ -713,7 +719,10 @@ const FALLBACK_DATA = {
     {date:"Jan 2025",event:"Reform neck-and-neck with Labour nationally"},
     {date:"Mar 2025",event:"Rupert Lowe expelled from Reform UK"},
     {date:"May 2025",event:"Reform opens sustained polling lead"},
-    {date:"Feb 2026",event:"Restore Britain launches as a party — 7-10% in early polls"}
+    {date:"Sep 2025",event:"Zack Polanski elected Green Party leader"},
+    {date:"Feb 2026",event:"Restore Britain launches as a party — 7-10% in early polls"},
+    {date:"26 Feb 2026",event:"Greens win Gorton & Denton by-election — 5th MP"},
+    {date:"1-2 Mar 2026",event:"YouGov puts Greens 2nd on 21% — highest ever Green poll"}
   ]
 };
 
